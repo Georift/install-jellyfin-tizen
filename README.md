@@ -1,11 +1,14 @@
-# Install development builds of Jellyfin Tizen on your TV
+# Install Jellyfin on your Samsung TV
 
-This docker container will attempt to download the latest release
-of [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen) and
-install it on the Samsung TV you specify.
+This project makes it easy to install a native Jellyfin application on your
+Samsung TV. Samsung TV's since 2015 run an operating system called Tizen,
+Jellyfin has an officially supported application, however they haven't yet made
+it onto the [Samsung app store](https://github.com/jellyfin/jellyfin-tizen/issues/94).
 
-Soon Jellyfin will hopefully [be on the Samsung TV app store](https://github.com/jellyfin/jellyfin-tizen/issues/94), but until
-then this is a quick way to install the builds.
+In this repo I've made it easier to install this on your TV, without needing to
+spend too long setting up a full development environment.
+
+For documentation about the Jellyfin app, see [here](https://github.com/jellyfin/jellyfin-tizen).
 
 ## Usage
 
@@ -18,10 +21,18 @@ then this is a quick way to install the builds.
 docker run --rm georift/install-jellyfin-tizen <samsung tv ip>
 ```
 
+## Supported platforms
+
+At the moment, these steps should work on any amd64 based system. Platforms
+like the Raspberry Pi, which run ARM chips, are not yet supported, but 
+[we might have some progress soon.](https://github.com/Georift/install-jellyfin-tizen/issues/10).
+
+
 ## Credits
 
-Possible thanks to these projects, I just quickly packaged up all their work
-into a single container:
+This is possible thanks to these projects, this repo is just a quick pulling together
+of all their hard work into some simply steps:
 
+- [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen)
 - [jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) for providing development builds
 - [vitalets/docker-tizen-webos-sdk](https://github.com/vitalets/docker-tizen-webos-sdk) for a docker container preinstalled with the Tizen SDK
