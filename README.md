@@ -13,9 +13,10 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 ## Usage
 
 1. [Ensure your Samsung TV is in developer mode](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
-	- If you're having trouble, make sure you're using the "123" button on the remote when typing in "12345".
+	- If you're having trouble entering the developer screen, make sure you're using the "123" button on the remote when typing in "12345".
+	- Please make sure you enter `Host PC IP` address to the device you're running this container on.
 	
-2. Run this command replacing the final argument with the IP of your Samsung TV
+3. Run this command replacing the final argument with the IP of your Samsung TV
 
 ```bash
 docker run --rm georift/install-jellyfin-tizen <samsung tv ip>
