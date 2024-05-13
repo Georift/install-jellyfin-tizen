@@ -17,7 +17,7 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
    - If you're having trouble entering the developer screen, make sure you're using the "123" button on the remote when typing in "12345".
    - Please make sure you enter `Host PC IP` address to the device you're running this container on.
 
-2. Make sure to uninstall Jellyfin applicatoin from the Samsung TV first
+2. Make sure to uninstall Jellyfin application from the Samsung TV first
 3. Run this command replacing the final argument with the IP of your Samsung TV
 
 ```bash
@@ -41,6 +41,7 @@ docker run -ulimit nofile=1024:65536 --rm georift/install-jellyfin-tizen <samsun
 ```
 
 - `install failed[118, -11], reason: Author certificate not match :`
+
   Uninstall the Jellyfin application from your Samsung TV, and run the installation again.
 
 ## Credits
