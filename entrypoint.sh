@@ -28,10 +28,10 @@ fi
 echo "Found TV name: $TV_NAME"
 
 echo "Attempting to install jellyfin-tizen-builds version:"
-curl -v location: https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest 2>&1 | \
+curl -v location: https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-05-04-1137 2>&1 | \
 	grep "< location:" | \
 	sed -e 's/< location: //g'
 
-wget -q --show-progress https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest/download/Jellyfin.wgt
+wget -q --show-progress https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/download/2024-05-04-1137/Jellyfin.wgt
 
 tizen install -n Jellyfin.wgt -t "$TV_NAME"
