@@ -13,9 +13,11 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 ## Usage
 
 1. [Ensure your Samsung TV is in developer mode](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
-	- If you're having trouble entering the developer screen, make sure you're using the "123" button on the remote when typing in "12345".
-	- Please make sure you enter `Host PC IP` address to the device you're running this container on.
-	
+
+   - If you're having trouble entering the developer screen, make sure you're using the "123" button on the remote when typing in "12345".
+   - Please make sure you enter `Host PC IP` address to the device you're running this container on.
+
+2. Make sure to uninstall Jellyfin applicatoin from the Samsung TV first
 3. Run this command replacing the final argument with the IP of your Samsung TV
 
 ```bash
@@ -25,9 +27,21 @@ docker run --rm georift/install-jellyfin-tizen <samsung tv ip>
 ## Supported platforms
 
 At the moment, these steps should work on any amd64 based system. Platforms
-like the Raspberry Pi, which run ARM chips, are not yet supported, but 
+like the Raspberry Pi, which run ARM chips, are not yet supported, but
 [we might have some progress soon.](https://github.com/Georift/install-jellyfin-tizen/issues/10).
 
+## Errors
+
+- `library initialization failed - unable to allocate file descriptor table - out of memory`
+
+Add `--ulimit nofile=1024:65536` to the `docker run` command:
+
+```bash
+docker run -ulimit nofile=1024:65536 --rm georift/install-jellyfin-tizen <samsung tv ip>
+```
+
+- `install failed[118, -11], reason: Author certificate not match :`
+  Uninstall the Jellyfin application from your Samsung TV, and run the installation again.
 
 ## Credits
 
