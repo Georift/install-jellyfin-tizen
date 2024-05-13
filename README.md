@@ -19,7 +19,7 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 3. Run this command replacing the final argument with the IP of your Samsung TV
 
 ```bash
-docker run --rm georift/install-jellyfin-tizen <samsung tv ip>
+docker run --rm bleach1520/install-jellyfin-tizen <samsung tv ip>
 ```
 
 ## Supported platforms
