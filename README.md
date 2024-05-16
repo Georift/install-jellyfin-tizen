@@ -18,10 +18,11 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
    - Please make sure you enter `Host PC IP` address to the device you're running this container on.
 
 2. Make sure to uninstall Jellyfin application from the Samsung TV first
-3. Run this command replacing the final argument with the IP of your Samsung TV
+3. Run this command replacing first argument with the IP of your Samsung
+4. (Optional) You can provide preferred [jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) option (Jellyfin / Jellyfin-TrueHD / Jellyfin-master / Jellyfin-master-TrueHD / Jellyfin-secondary) as second argument. By default, Jellyfin option is used.
 
 ```bash
-docker run --rm georift/install-jellyfin-tizen <samsung tv ip>
+docker run --rm georift/install-jellyfin-tizen <samsung tv ip> <build option>
 ```
 
 ## Supported platforms

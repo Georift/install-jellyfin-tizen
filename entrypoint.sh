@@ -5,10 +5,13 @@ if [ -z "$1" ]; then
 		exit 1;
 fi
 
+JELLYFIN_BUILD_OPTION="${2:-"Jellyfin"}";
+
 echo ""
 echo ""
 echo "	Thanks to https://github.com/jeppevinkel for providing the pre-packaged jellyfin-tizen builds!";
 echo "	These builds can be found at https://github.com/jeppevinkel/jellyfin-tizen-builds";
+echo "	Using Jellyfin Tizen Build: $2.wgt";
 echo ""
 echo ""
 
@@ -27,11 +30,11 @@ if [ -z "$TV_NAME" ]; then
 fi
 echo "Found TV name: $TV_NAME"
 
-echo "Attempting to install jellyfin-tizen-builds version:"
+echo "Attempting to install jellyfin-tizen-builds ($JELLYFIN_BUILD_OPTION.wgt) version:"
 curl -v location: https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest 2>&1 | \
 	grep "< location:" | \
 	sed -e 's/< location: //g'
 
-wget -q --show-progress https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest/download/Jellyfin.wgt
+wget -q --show-progress https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest/download/$JELLYFIN_BUILD_OPTION.wgt
 
-tizen install -n Jellyfin.wgt -t "$TV_NAME"
+tizen install -n $JELLYFIN_BUILD_OPTION.wgt -t "$TV_NAME"
