@@ -5,13 +5,13 @@ if [ -z "$1" ]; then
 		exit 1;
 fi
 
-JELLYFIN_BUILD_OPTION="${2:-"Jellyfin"}";
+JELLYFIN_BUILD_OPTION="${2:-Jellyfin}";
 
 echo ""
 echo ""
 echo "	Thanks to https://github.com/jeppevinkel for providing the pre-packaged jellyfin-tizen builds!";
 echo "	These builds can be found at https://github.com/jeppevinkel/jellyfin-tizen-builds";
-echo "	Using Jellyfin Tizen Build: $2.wgt";
+echo "	Using Jellyfin Tizen Build: $JELLYFIN_BUILD_OPTION.wgt";
 echo ""
 echo ""
 
