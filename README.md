@@ -20,9 +20,16 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 2. Make sure to uninstall Jellyfin application from the Samsung TV first
 3. Run this command replacing first argument with the IP of your Samsung
 4. (Optional) You can provide preferred [jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) option (Jellyfin / Jellyfin-TrueHD / Jellyfin-master / Jellyfin-master-TrueHD / Jellyfin-secondary) as second argument. By default, Jellyfin option is used.
+5. (Optional) You can provide preferred [jellyfin-tizen-builds releases](https://github.com/jeppevinkel/jellyfin-tizen-builds/releases) release tag URL as third argument. By default, latest version is used. This is useful if you want to install older Jellyfin Tizen Client version.
 
 ```bash
-docker run --rm georift/install-jellyfin-tizen <samsung tv ip> <build option>
+docker run --rm georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
+```
+
+Example:
+
+```bash
+docker run --rm georift/install-jellyfin-tizen 192.168.0.10 Jellyfin-TrueHD "https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-05-13-0139"
 ```
 
 ## Supported platforms
@@ -38,7 +45,7 @@ like the Raspberry Pi, which run ARM chips, are not yet supported, but
   Add `--ulimit nofile=1024:65536` to the `docker run` command:
 
   ```bash
-  docker run -ulimit nofile=1024:65536 --rm georift/install-jellyfin-tizen <samsung tv ip>
+  docker run -ulimit nofile=1024:65536 --rm georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
   ```
 
 - `install failed[118, -11], reason: Author certificate not match :`
