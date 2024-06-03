@@ -45,7 +45,7 @@ like the Raspberry Pi, which run ARM chips, are not yet supported, but
   Add `--ulimit nofile=1024:65536` to the `docker run` command:
 
   ```bash
-  docker run -ulimit nofile=1024:65536 --rm georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
+  docker run --ulimit nofile=1024:65536 --rm georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
   ```
 
 - `install failed[118, -11], reason: Author certificate not match :`
