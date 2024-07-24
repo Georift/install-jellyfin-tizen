@@ -32,6 +32,18 @@ Example:
 docker run --rm georift/install-jellyfin-tizen 192.168.0.10 Jellyfin-TrueHD "https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-05-13-0139"
 ```
 
+### Validating Success
+
+If everything went well, you should see docker output something like the following
+
+```txt
+Installed the package: Id(AprZAARz4r.Jellyfin)
+Tizen application is successfully installed.
+Total time: 00:00:12.205
+```
+
+At this point you can find jellyfin on your TV by navigating to apps -> downloaded (scroll down), where you'll find jellyfin.
+
 ## Supported platforms
 
 At the moment, these steps should work on any amd64 based system. Platforms
