@@ -39,9 +39,8 @@ TV_IP="$1";
 echo "Attempting to connect to Samsung TV at IP address $TV_IP"
 sdb connect $1
 
-# work out the TV name by connecting to $TV_IP:8001/api/v2/ and getting .device.modelName with jq
 echo "Attempting to get the TV name..."
-TV_NAME=$(curl -s http://$TV_IP:8001/api/v2/ | jq -r '.device.modelName')
+TV_NAME=$(sdb devices | grep -E 'device\s+\w+' -o | sed 's/device//' - | xargs)
 
 if [ -z "$TV_NAME" ]; then
     echo "We were unable to find the TV name.";
