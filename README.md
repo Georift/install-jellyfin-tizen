@@ -13,7 +13,7 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 ## Usage
 
 #### Prerequisites
-- Install [Docker](https://www.docker.com/get-started/) installed & any necessary [Virtualization](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1) features enabled.
+- Install [Docker](https://www.docker.com/get-started/) & have any necessary [Virtualization](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1) features enabled.
 - Ensure you are on the same network as the TV you are trying to install the app to.
 #### Installation
 1. [Ensure your Samsung TV is in developer mode](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
@@ -22,7 +22,7 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
    - Please make sure you enter `Host PC IP` address to the device you're running this container on.
 
 2. Make sure to uninstall Jellyfin application from the Samsung TV first
-3. Run the command below, replacing first argument with the IP of your Samsung
+3. Run the command below, replacing first argument with the IP of your Samsung TV
    - (Optional) You can provide preferred [jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) option (Jellyfin / Jellyfin-TrueHD / Jellyfin-master / Jellyfin-master-TrueHD / Jellyfin-secondary) as second argument. By default, Jellyfin option is used.
    - (Optional) You can provide preferred [jellyfin-tizen-builds releases](https://github.com/jeppevinkel/jellyfin-tizen-builds/releases) release tag URL as third argument. By default, latest version is used. This is useful if you want to install older Jellyfin Tizen Client version.
    - If you do not want to use either of these options and just install the default build, do not put anything after the IP address.
