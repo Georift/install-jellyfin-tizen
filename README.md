@@ -28,13 +28,13 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
    - If you do not want to use either of these options and just install the default build, do not put anything after the IP address.
 
 ```bash
-docker run --rm georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
+docker run --rm ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
 ```
 
 Example:
 
 ```bash
-docker run --rm georift/install-jellyfin-tizen 192.168.0.10 Jellyfin-TrueHD "https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-05-13-0139"
+docker run --rm ghcr.io/georift/install-jellyfin-tizen 192.168.0.10 Jellyfin-TrueHD "https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-05-13-0139"
 ```
 
 ### Validating Success
@@ -62,7 +62,7 @@ like the Raspberry Pi, which run ARM chips, are not yet supported, but
   Add `--ulimit nofile=1024:65536` to the `docker run` command:
 
   ```bash
-  docker run --ulimit nofile=1024:65536 --rm georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
+  docker run --ulimit nofile=1024:65536 --rm ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
   ```
 
 - `install failed[118, -11], reason: Author certificate not match :`
