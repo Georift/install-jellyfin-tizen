@@ -6,7 +6,6 @@ permissions:
 on:
   push:
     branches:
-      - 'add-container-builds'
       - 'main'
 
 jobs:
