@@ -18,11 +18,17 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 #### Installation
 1. [Ensure your Samsung TV is in developer mode](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
 
-   - If you're having trouble entering the developer screen, make sure you're using the "123" button on the remote when typing in "12345".
-   - Please make sure you enter `Host PC IP` address to the device you're running this container on.
+   - If you're having trouble entering the developer screen, open the number pad using the "123" button before typing "12345" with the on-screen keyboard.
+
+   - Enter the `Host PC IP` address of the device you're running this container on.
+
+   > [!NOTE]
+   > If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
 
 2. Make sure to uninstall Jellyfin application from the Samsung TV first
+
 3. Run the command below, replacing first argument with the IP of your Samsung TV
+
    - (Optional) You can provide preferred [jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) option (Jellyfin / Jellyfin-TrueHD / Jellyfin-master / Jellyfin-master-TrueHD / Jellyfin-secondary) as second argument. By default, Jellyfin option is used.
    - (Optional) You can provide preferred [jellyfin-tizen-builds releases](https://github.com/jeppevinkel/jellyfin-tizen-builds/releases) release tag URL as third argument. By default, latest version is used. This is useful if you want to install older Jellyfin Tizen Client version.
    - If you do not want to use either of these options and just install the default build, do not put anything after the IP address.
@@ -72,7 +78,7 @@ like the Raspberry Pi, which run ARM chips, are not yet supported, but
 ## Credits
 
 This is possible thanks to these projects, this repo is just a quick pulling together
-of all their hard work into some simply steps:
+of all their hard work into a simple command:
 
 - [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen)
 - [jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) for providing development builds
