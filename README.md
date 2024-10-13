@@ -22,8 +22,8 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 
    - Enter the `Host PC IP` address of the device you're running this container on.
 
-   > [!NOTE]
-   > If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
+> [!NOTE]
+> If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
 
 2. Make sure to uninstall Jellyfin application from the Samsung TV first
 
