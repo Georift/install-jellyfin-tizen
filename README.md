@@ -20,6 +20,8 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 
    - If you're having trouble entering the developer screen, open the number pad using the "123" button before typing "12345" with the on-screen keyboard.
 
+   - Toggle the `Developer` button to `On`.
+
    - Enter the `Host PC IP` address of the device you're running this container on.
      > Troubleshooting Tip: If the on-screen keyboard will not pop up or if it does pop up but nothing is being entered while typing then please use either an external bluetooth keyboard or utlizie the virtual keyboard from the Samsung SmartThings app (available on iOS or Android). Once signed in, add your device (it may hang during pairing but still work if you navigate back to home). Once paired, select the devices tab on the bottom toolbar and then tap your device widget; the widget may display 'downloading' however the virtual remote should appear shortly after. Once the virtual remote has appeared, swipe up to maximize the virtual remote - you should see a bottom section appear. Swipe on the bottom section of the virtual device until you reach the numeric keypad. You will now be able to enter the Host PC IP address with the virtual numeric keyboard. Enter the IP address and then hit okay as before. Now run the docker command described below. This behavior has been documented on the (UN43TU7000GXZD & UN55AU8000BXZA and likely exists on other models as well).
 
