@@ -21,6 +21,7 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
    - If you're having trouble entering the developer screen, open the number pad using the "123" button before typing "12345" with the on-screen keyboard.
 
    - Enter the `Host PC IP` address of the device you're running this container on.
+     - Troubleshooting Tip: If the on-screen keyboard will not pop up or if it does pop up but nothing is being entered while typing then please use either an external bluetooth keyboard or add the TV on the Samsung SmartThings app (available on iOS or Android). Once signed in, add your device (it may hang during pairing but still work if you go back to home, else try pairing again). Select the devices tab on the bottom and then tap your device; the widget may display 'downloading' however the virtual remote should appear. Swipe up to maximize the virtual device - you should see a bottom section appear. Swipe on the bottom section of the virtual device to the numeric keypad. You will now be able to enter the Host PC IP address with the virtual numeric keyboard. Enter the IP address and then hit okay as before. Now run the docker command described below. This behavior has been documented on the (UN43TU7000GXZD & UN55AU8000BXZA and likely exists on other models as well).
 
 > [!NOTE]
 > If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
@@ -29,12 +30,13 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 
 3. Run the command below, replacing first argument with the IP of your Samsung TV
 
+   - If you just want to install the default build, do not put anything after the IP address.
    - (Optional) You can provide preferred [jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) option (Jellyfin / Jellyfin-TrueHD / Jellyfin-master / Jellyfin-master-TrueHD / Jellyfin-secondary) as second argument. By default, Jellyfin option is used.
    - (Optional) You can provide preferred [jellyfin-tizen-builds releases](https://github.com/jeppevinkel/jellyfin-tizen-builds/releases) release tag URL as third argument. By default, latest version is used. This is useful if you want to install older Jellyfin Tizen Client version.
-   - If you do not want to use either of these options and just install the default build, do not put anything after the IP address.
+   
 
 ```bash
-docker run --rm ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
+**docker run --rm ghcr.io/georift/install-jellyfin-tizen** <u>samsung tv ip</u> [build option] [tag url]
 ```
 
 Example:
