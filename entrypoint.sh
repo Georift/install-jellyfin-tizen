@@ -40,7 +40,7 @@ echo "Attempting to connect to Samsung TV at IP address $TV_IP"
 sdb connect $1
 
 echo "Attempting to get the TV name..."
-TV_NAME=$(sdb devices | grep -E 'device\s+\w+' -o | sed 's/device//' - | xargs)
+TV_NAME=$(sdb devices | grep -E 'device\s+\w+[-]?\w+' -o | sed 's/device//' - | xargs)
 
 if [ -z "$TV_NAME" ]; then
     echo "We were unable to find the TV name.";
