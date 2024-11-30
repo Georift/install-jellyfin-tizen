@@ -13,21 +13,20 @@ Install Jellyfin to your TV with just one command once your computer and TV are 
 
 ## Configure Samsung TV
 
-### [Place TV in Developer Mode](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+### Place TV in [Developer Mode](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
 
 > [!NOTE]
 > If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
-
 - On the TV, open the "Smart Hub".
 - Select the "Apps" panel.
 - Press the "123" button before typing "12345" with the on-screen keyboard.
 - Toggle the `Developer` button to `On`.
 - Enter the `Host PC IP` address of the device you're running this container on.
-> Troubleshooting Tip: If the on-screen keyboard will not pop up or if it does pop up but nothing is being entered while typing then please use either an external Bluetooth keyboard or follow these instructions to utilize the virtual keyboard from the Samsung SmartThings app (available on iOS or Android). Download the SmartThings app from your app store. Sign into your Samsung account on your TV and SmartThings app. Open the SmartThings app. Grant the requested permissions. On the bottom toolbar select `Devices`, select the `+` icon, select `Samsung Devices Add`, select `TV` then wait and select your TV (it may hang during pairing but still work if you navigate back to `Devices`). Select your TV widget (the widget may briefly display 'downloading') and the virtual remote should appear shortly. Swipe up to maximize the virtual remote—you should see a bottom section appear. Swipe on the bottom section of the virtual device until you find the numeric keypad. Enter the Host PC IP address with the virtual numeric keyboard. Enter the IP address and then select `Okay`. Now run the docker command described below. (This issue has been documented on the UN43TU7000G/UN55AU8000B and likely exists on other models as well.)
+    > Troubleshooting Tip: If the on-screen keyboard will not pop up or if it does pop up but nothing is being entered while typing then please use either an external Bluetooth keyboard or follow these instructions to utilize the virtual keyboard from the Samsung SmartThings app (available on iOS or Android). Download the SmartThings app from your app store. Sign into your Samsung account on your TV and SmartThings app. Open the SmartThings app. Grant the requested permissions. On the bottom toolbar select `Devices`, select the `+` icon, select `Samsung Devices Add`, select `TV` then wait and select your TV (it may hang during pairing but still work if you navigate back to `Devices`). Select your TV widget (the widget may briefly display 'downloading') and the virtual remote should appear shortly. Swipe up to maximize the virtual remote—you should see a bottom section appear. Swipe on the bottom section of the virtual device until you find the numeric keypad. Enter the Host PC IP address with the virtual numeric keyboard. Enter the IP address and then select `Okay`. Now run the docker command described below. (This issue has been documented on the UN43TU7000G/UN55AU8000B and likely exists on other models as well.)
 
-### [Uninstall any prior Jellyfin installations, if required](https://www.samsung.com/in/support/tv-audio-video/how-to-uninstall-an-app-on-samsung-smart-tv/)
+### If required, [uninstall](https://www.samsung.com/in/support/tv-audio-video/how-to-uninstall-an-app-on-samsung-smart-tv/) any prior Jellyfin installations
 
-## Installation
+## Installation app
 
 - Run the command below, replacing first argument with the IP of your Samsung TV
    - If you just want to install the default build, do not put anything after the IP address.
@@ -44,6 +43,20 @@ Example:
 ```bash
 docker run --rm ghcr.io/georift/install-jellyfin-tizen 192.168.0.10 Jellyfin-TrueHD "https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-05-13-0139"
 ```
+
+## Errors
+
+- `library initialization failed - unable to allocate file descriptor table - out of memory`
+
+  Add `--ulimit nofile=1024:65536` to the `docker run` command:
+
+  ```bash
+  docker run --ulimit nofile=1024:65536 --rm ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
+  ```
+
+- `install failed[118, -11], reason: Author certificate not match :`
+
+  Uninstall the Jellyfin application from your Samsung TV, and run the installation again.
 
 ### Validating Success
 
@@ -62,20 +75,6 @@ At this point you can find jellyfin on your TV by navigating to Apps -> Download
 At the moment, these steps should work on any amd64 based system. Platforms
 like the Raspberry Pi, which run ARM chips, are not yet supported, but
 [we might have some progress soon.](https://github.com/Georift/install-jellyfin-tizen/issues/10).
-
-## Errors
-
-- `library initialization failed - unable to allocate file descriptor table - out of memory`
-
-  Add `--ulimit nofile=1024:65536` to the `docker run` command:
-
-  ```bash
-  docker run --ulimit nofile=1024:65536 --rm ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>
-  ```
-
-- `install failed[118, -11], reason: Author certificate not match :`
-
-  Uninstall the Jellyfin application from your Samsung TV, and run the installation again.
 
 ## Credits
 
