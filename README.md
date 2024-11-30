@@ -1,17 +1,23 @@
-# Install Jellyfin on your Samsung TV
+# Install Jellyfin for Samsung TV
 
-This project makes it easy to install [Jellyfin for Samsung TV](https://github.com/jellyfin/jellyfin-tizen) by automating the environment configuration build steps with Docker. Samsung TVs have been running Tizen OS since 2015, and while the Jellyfin app is stable & officially supported, [the app has yet to make it onto the Samsung app store since efforts began in late 2021](https://github.com/jellyfin/jellyfin-tizen/issues/94).
+This project makes it easy to install [Jellyfin for Samsung TV](https://github.com/jellyfin/jellyfin-tizen) by automating the environment configuration build steps with Docker.
+
+Samsung TVs have been running Tizen OS since 2015, and while the Jellyfin app is stable & officially supported, [the app has yet to make it onto the Samsung app store since efforts began in late 2021](https://github.com/jellyfin/jellyfin-tizen/issues/94).
 
 Install Jellyfin to your TV with just one command once your computer and TV are configured as described below.
 
 ## Configure Computer (PC, Laptop, etc...)
-- Install [Docker](https://www.docker.com/get-started/)
+- Follow [Docker Installation Instructions](https://www.docker.com/get-started/)
 - Enable any necessary [Virtualization](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1) features.
 - Ensure you are on the same network as the TV you are trying to install the app to.
+
 ## Configure Samsung TV
+
 #### [Place TV in Developer Mode](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+
 > [!NOTE]
 > If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
+
 - On the TV, open the "Smart Hub".
 - Select the "Apps" panel.
 - Press the "123" button before typing "12345" with the on-screen keyboard.
@@ -22,6 +28,7 @@ Install Jellyfin to your TV with just one command once your computer and TV are 
 ## [Uninstall any prior Jellyfin installations, if required](https://www.samsung.com/in/support/tv-audio-video/how-to-uninstall-an-app-on-samsung-smart-tv/)
 
 ## Installation
+
 - Run the command below, replacing first argument with the IP of your Samsung TV
    - If you just want to install the default build, do not put anything after the IP address.
    - (Optional) You can provide preferred [jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) option (Jellyfin / Jellyfin-TrueHD / Jellyfin-master / Jellyfin-master-TrueHD / Jellyfin-secondary) as second argument. By default, Jellyfin option is used.
