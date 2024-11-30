@@ -23,7 +23,7 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
    - Toggle the `Developer` button to `On`.
 
    - Enter the `Host PC IP` address of the device you're running this container on.
-     > Troubleshooting Tip: If the on-screen keyboard will not pop up or if it does pop up but nothing is being entered while typing then please use either an external bluetooth keyboard or utlizie the virtual keyboard from the Samsung SmartThings app (available on iOS or Android). Once signed in, add your device (it may hang during pairing but still work if you navigate back to home). Once paired, select the devices tab on the bottom toolbar and then tap your device widget; the widget may display 'downloading' however the virtual remote should appear shortly after. Once the virtual remote has appeared, swipe up to maximize the virtual remote - you should see a bottom section appear. Swipe on the bottom section of the virtual device until you reach the numeric keypad. You will now be able to enter the Host PC IP address with the virtual numeric keyboard. Enter the IP address and then hit okay as before. Now run the docker command described below. This behavior has been documented on the (UN43TU7000GXZD & UN55AU8000BXZA and likely exists on other models as well).
+     > Troubleshooting Tip: If the on-screen keyboard will not pop up or if it does pop up but nothing is being entered while typing then please use either an external Bluetooth keyboard or follow these instructions to utilize the virtual keyboard from the Samsung SmartThings app (available on iOS or Android). Download the SmartThings app from your app store. Sign into your Samsung account on your Samsung TV and SmartThings app. Open the SmartThings app. Grant the requested permissions. On the bottom toolbar select `Devices`, select the `+` icon, select `Samsung Devices Add`, select `TV` then wait and select your Samsung TV (it may hang during pairing but still work if you navigate back to `Devices`). Select your Samsung TV widget (the widget may briefly display 'downloading') and the virtual remote should appear shortly. Swipe up to maximize the virtual remote—you should see a bottom section appear. Swipe on the bottom section of the virtual device until you find the numeric keypad. Enter the Host PC IP address with the virtual numeric keyboard. Enter the IP address and then select `Okay`. Now run the docker command described below. (This issue has been documented on the UN43TU7000G/UN55AU8000B and likely exists on other models as well.)
 
 > [!NOTE]
 > If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
@@ -38,7 +38,7 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
    
 
 ```bash
-**docker run --rm ghcr.io/georift/install-jellyfin-tizen** <u>samsung tv ip</u> [build option] [tag url]
+docker run --rm ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> [build option] [tag url]
 ```
 
 Example:
