@@ -67,7 +67,7 @@ docker run --rm ghcr.io/georift/install-jellyfin-tizen 192.168.0.10 Jellyfin-Tru
 
   Uninstall the Jellyfin application from your Samsung TV, and run the installation again.
 
-##### Success
+#### Success
 
 If everything went well, you should see docker output something like the following
 
@@ -87,8 +87,7 @@ like the Raspberry Pi, which run ARM chips, are not yet supported, but
 
 ## Credits
 
-This is possible thanks to these projects, this repo is just a quick pulling together
-of all their hard work into a simple command:
+This project is possible thanks to these projects:
 
 - [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen)
 - [jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) for providing development builds
