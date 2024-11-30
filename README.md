@@ -2,8 +2,8 @@
 
 This project makes it easy to install a native Jellyfin application on your
 Samsung TV. Samsung TV's since 2015 run an operating system called Tizen,
-Jellyfin has an officially supported application, however they haven't yet made
-it onto the [Samsung app store](https://github.com/jellyfin/jellyfin-tizen/issues/94).
+Jellyfin has an officially supported application, however [they haven't yet made
+it onto the Samsung app store](https://github.com/jellyfin/jellyfin-tizen/issues/94).
 
 In this repo I've made it easier to install this on your TV, without needing to
 spend too long setting up a full development environment.
@@ -28,7 +28,7 @@ For documentation about the Jellyfin app, see [here](https://github.com/jellyfin
 > [!NOTE]
 > If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
 
-2. Make sure to uninstall Jellyfin application from the Samsung TV first
+2. If needed, uninstall any existing Jellyfin applications from the Samsung TV
 
 3. Run the command below, replacing first argument with the IP of your Samsung TV
 
