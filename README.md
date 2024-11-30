@@ -1,6 +1,6 @@
 # Install Jellyfin for Samsung TV
 
-This project makes it easy to install [Jellyfin for Samsung TV](https://github.com/jellyfin/jellyfin-tizen) by automating the environment configuration build steps with Docker.
+This project makes it easy to install [Jellyfin for Samsung TV](https://github.com/jellyfin/jellyfin-tizen) by automating the environment configuration with Docker.
 
 Samsung TVs have been running Tizen OS since 2015, and while the Jellyfin app is stable & officially supported, [the app has yet to make it onto the Samsung app store since efforts began in late 2021](https://github.com/jellyfin/jellyfin-tizen/issues/94).
 
