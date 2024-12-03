@@ -1,6 +1,6 @@
 FROM vitalets/tizen-webos-sdk
 
-COPY entrypoint.sh . 
+COPY entrypoint.sh profile.xml ./
 
 # jq for quickly parsing the TV name from the API endpoint
 RUN apt update && apt install jq -y && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/*

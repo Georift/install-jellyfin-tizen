@@ -22,6 +22,17 @@ else
 	TAG=$(echo $TAG_URL | sed 's#.*/##');
 fi
 
+if [ -z "$4" ]; then
+	echo "Certificate information not provided, using default dev certificate."
+else
+	if [ -f /certificates/author.p12 ] && [ -f /certificates/distributor.p12 ]; then
+		CERTIFICATE_PASSWORD=$4
+	else
+		echo "Certificate information provided but certificate files not found."
+		exit 1
+	fi
+fi	
+
 DOWNLOAD_URL=$(echo https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/download/${TAG}/${JELLYFIN_BUILD_OPTION}.wgt);
 
 echo ""
@@ -48,9 +59,15 @@ if [ -z "$TV_NAME" ]; then
 fi
 echo "Found TV name: $TV_NAME"
 
+echo "Downloading jellyfin-tizen-builds $JELLYFIN_BUILD_OPTION.wgt from release: $TAG"
+wget -q --show-progress "$DOWNLOAD_URL"; echo ""
+
+if ! [ -z "$CERTIFICATE_PASSWORD" ]; then
+	echo "Attempting to sign package using provided certificate"
+	sed -i "s/_CERTIFICATEPASSWORD_/$CERTIFICATE_PASSWORD/" profile.xml
+	sed -i '/<\/profile>/ r profile.xml' /home/developer/tizen-studio-data/profile/profiles.xml
+	tizen package -t wgt -s custom -- $JELLYFIN_BUILD_OPTION.wgt
+fi
+
 echo "Attempting to install jellyfin-tizen-builds $JELLYFIN_BUILD_OPTION.wgt from release: $TAG"
-echo "$DOWNLOAD_URL"
-
-wget -q --show-progress "$DOWNLOAD_URL"
-
 tizen install -n $JELLYFIN_BUILD_OPTION.wgt -t "$TV_NAME"
