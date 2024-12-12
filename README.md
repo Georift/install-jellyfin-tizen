@@ -85,6 +85,16 @@ At the moment, these steps should work on any amd64 based system. Platforms
 like the Raspberry Pi, which run ARM chips, are not yet supported, but
 [we might have some progress soon.](https://github.com/Georift/install-jellyfin-tizen/issues/10).
 
+### Additional Required Commands: ARM (MacOS M Chips and higher)
+- Firstly make sure that you have the Experimental "Virtualization Framework" enabled.
+- Verify that docker on your M series has qemu installed. You can do this by running:
+```docker run --rm --platform linux/amd64 alpine uname -m```
+
+If it outputs: **x86_64** you're good. If not, reinstall docker, with the needed requirements.
+
+Then use the ```--platform linux/amd64"``` argument on the original command. This should look something like this:
+```docker run --rm --platform linux/amd64 ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>```
+
 ## Credits
 
 This project is possible thanks to these projects:
