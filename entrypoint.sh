@@ -14,12 +14,28 @@ if [ -z "$2" ]; then
 fi
 
 if [ -z "$3" ]; then
-	REAL_TAG_URL=$(curl -v location: $TAG_URL 2>&1 | grep "< location:" | sed -e 's/< location: //g' | tr -d '\r');
-	TAG=$(echo $REAL_TAG_URL | sed 's#.*/##');
-    echo "Tag URL not provided, using latest available version: $TAG";
+	FULL_TAG_URL=$(curl -sLI $TAG_URL | grep -i 'location:' | sed -e 's/^[Ll]ocation: //g' | tr -d '\r');
+
+	# Check if FULL_TAG_URL is not empty and valid
+	if [ -z "$FULL_TAG_URL" ]; then
+		echo "Error: Could not fetch the latest tag URL from $TAG_URL"
+		exit 1
+	fi
+ 
+	TAG=$(basename "$FULL_TAG_URL");
+	echo "Tag URL not provided, using the latest available version: $TAG";
 	echo "You can change it by passing tag URL as third argument for this script.";
 else
-	TAG=$(echo $TAG_URL | sed 's#.*/##');
+	# Extract the tag name from the provided TAG_URL
+	TAG=$(basename "$TAG_URL")
+ 
+	# Check if TAG is not empty
+	if [ -z "$TAG" ]; then
+		echo "Error: Could not extract the tag from the provided URL $TAG_URL"
+		echo "Please provide a URL to the full release, for example: https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-11-24-0431"
+  		echo "Otherwise, don't provide a URL and the latest version will be installed."
+		exit 1
+	fi
 fi
 
 if [ -z "$4" ]; then
