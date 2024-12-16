@@ -39,20 +39,26 @@ Follow the [Samsung uninstall instructions](https://www.samsung.com/in/support/t
 #### Installation
 - Run the command below, replacing first argument with the IP of your Samsung TV
    - If you just want to install the default build, do not put anything after the IP address.
-   - (Optional) You can provide preferred [jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) option (Jellyfin / Jellyfin-TrueHD / Jellyfin-master / Jellyfin-master-TrueHD / Jellyfin-secondary) as second argument. By default, Jellyfin option is used.
-   - (Optional) You can provide preferred [jellyfin-tizen-builds releases](https://github.com/jeppevinkel/jellyfin-tizen-builds/releases) release tag URL as third argument. By default, latest version is used. This is useful if you want to install older Jellyfin Tizen Client version.
-   
+    - (Optional) You can provide preferred [jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) option (Jellyfin / Jellyfin-TrueHD / Jellyfin-master / Jellyfin-master-TrueHD / Jellyfin-secondary) as second argument. By default, Jellyfin option is used.
+    - (Optional) You can provide preferred [jellyfin-tizen-builds releases](https://github.com/jeppevinkel/jellyfin-tizen-builds/releases) release tag URL as third argument. By default, latest version is used. This is useful if you want to install older Jellyfin Tizen Client version.
+    - (Optional) You can provide a custom Samsung certificate by mounting the `.p12` files at `/certificates/` and providing the certificate password as fourth argument.
+   - If you do not want to use either of these options and just install the default build, do not put anything after the IP address.
 
 ```bash
-docker run --rm ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> [build option] [tag url]
+docker run --rm ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> [build option] [tag url] [certificate password]
 ```
 
-Example:
+Examples:
 
 ```bash
 docker run --rm ghcr.io/georift/install-jellyfin-tizen 192.168.0.10 Jellyfin-TrueHD "https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-05-13-0139"
 ```
 
+```bash
+docker run --rm -v "$(pwd)/author.p12":/certificates/author.p12 -v "$(pwd)/distributor.p12":/certificates/distributor.p12 ghcr.io/georift/install-jellyfin-tizen 192.168.0.10 Jellyfin "" 'CertPassw0rd!' # Third argument empty to use latest tag
+```
+
+### Validating Success
 #### Common Errors
 
 - `library initialization failed - unable to allocate file descriptor table - out of memory`
@@ -77,7 +83,7 @@ Tizen application is successfully installed.
 Total time: 00:00:12.205
 ```
 
-At this point you can find jellyfin on your TV by navigating to Apps -> Downloaded (scroll down), where you'll find Jellyfin.
+At this point you can find jellyfin on your TV by navigating to Apps -> Downloaded (scroll down), there you'll find Jellyfin.
 
 ## Supported Platforms
 
@@ -94,6 +100,12 @@ If it outputs: **x86_64** you're good. If not, reinstall docker, with the needed
 
 Then use the ```--platform linux/amd64"``` argument on the original command. This should look something like this:
 ```docker run --rm --platform linux/amd64 ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>```
+
+- `install failed[118, -12], reason: Check certificate error : :Invalid certificate chain with certificate in signature.`
+
+  Recent TV models require the installation packages to be signed with a custom certificate for your specific TV.
+
+  See [official documentation](https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/creating-certificates.html) on creating your certificate and use the custom certificate arguments.
 
 ## Credits
 
