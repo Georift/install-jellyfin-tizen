@@ -82,7 +82,9 @@ if ! [ -z "$CERTIFICATE_PASSWORD" ]; then
 	echo "Attempting to sign package using provided certificate"
 	sed -i "s/_CERTIFICATEPASSWORD_/$CERTIFICATE_PASSWORD/" profile.xml
 	sed -i '/<\/profile>/ r profile.xml' /home/developer/tizen-studio-data/profile/profiles.xml
-	tizen package -t wgt -s custom -- $JELLYFIN_BUILD_OPTION.wgt
+   	sed -i "s/_JELLYFINBUILDOPTION_/$JELLYFIN_BUILD_OPTION/" sign.exp
+	sed -i "s/_CERTIFICATEPASSWORD_/$CERTIFICATE_PASSWORD/" sign.exp
+   	expect sign.exp
 fi
 
 echo "Attempting to install jellyfin-tizen-builds $JELLYFIN_BUILD_OPTION.wgt from release: $TAG"
