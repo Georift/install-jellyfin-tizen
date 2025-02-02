@@ -1,9 +1,11 @@
 FROM vitalets/tizen-webos-sdk
 
-COPY entrypoint.sh profile.xml ./
+COPY entrypoint.sh profile.xml tizencertificates/requirements.txt tizencertificates/cert_server.py tizencertificates/certtool.py ./
 
-# jq for quickly parsing the TV name from the API endpoint
-RUN apt update && apt install jq -y && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/*
+# Install dependencies
+RUN apt update && apt install jq python3-pip -y && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/*
+RUN pip3 install -r requirements.txt
+
 RUN chown developer:developer entrypoint.sh
 RUN chmod +x entrypoint.sh
 

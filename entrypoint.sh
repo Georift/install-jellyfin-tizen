@@ -7,6 +7,7 @@ fi
 
 JELLYFIN_BUILD_OPTION="${2:-Jellyfin}";
 TAG_URL="${3:-https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest}";
+ONEUI8_MODE=false
 
 if [ -z "$2" ]; then
     echo "Build option not provided, using default one: $JELLYFIN_BUILD_OPTION";
@@ -38,6 +39,17 @@ else
 	fi
 fi
 
+if [ "$4" == "-oneui8" ]; then
+    ONEUI8_MODE=true
+    DEVICE_ID="$5"
+    EMAIL="$6"
+    if [ -z "$DEVICE_ID" ] || [ -z "$EMAIL" ]; then
+        echo "Error: For One UI 8 mode, you must provide a DEVICE_ID and EMAIL as additional arguments."
+        exit 1
+    fi
+fi
+
+#@TODO: Move this function to check for certficiate information after line 102
 if [ -z "$4" ]; then
 	echo "Certificate information not provided, using default dev certificate."
 else
@@ -77,6 +89,17 @@ echo "Found TV name: $TV_NAME"
 
 echo "Downloading jellyfin-tizen-builds $JELLYFIN_BUILD_OPTION.wgt from release: $TAG"
 wget -q --show-progress "$DOWNLOAD_URL"; echo ""
+
+#@TODO: When the certificate generation is done, then we could set $CERTIFICATE_PASSWORD to invoke the signing
+if [ "$ONEUI8_MODE" = true ]; then
+    echo "Starting the certificate generation server..."
+    pip install -r requirements.txt
+    python cert_server.py --tv --device-id="$DEVICE_ID" --email="$EMAIL" &
+    CERT_SERVER_PID=$!
+    echo "Certificate generation server started. Please visit the web interface to generate your certificate."
+    read -p "Press Enter after you have completed the certificate generation..."
+    kill $CERT_SERVER_PID
+fi
 
 if ! [ -z "$CERTIFICATE_PASSWORD" ]; then
 	echo "Attempting to sign package using provided certificate"
