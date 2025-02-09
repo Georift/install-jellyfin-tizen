@@ -111,13 +111,29 @@ echo "Downloading jellyfin-tizen-builds $JELLYFIN_BUILD_OPTION.wgt from release:
 wget -q --show-progress "$DOWNLOAD_URL"; echo ""
 
 if $ONEUI8_MODE; then
-  echo "Starting the certificate generation server..."
-  pip install -r requirements.txt
-  python cert_server.py --tv --device-id="$DEVICE_ID" --email="$EMAIL" &
-  CERT_SERVER_PID=$!
-  echo "Certificate generation server started. Please visit the web interface to generate your certificate."
-  read -p "Press Enter after you have completed the certificate generation..."
-  kill "$CERT_SERVER_PID"
+  if [ -z "$CERTIFICATE_PASSWORD" ]; then
+    echo "Starting the certificate generation server..."
+    pip install -r requirements.txt
+    python cert_server.py --tv --device-id="$DEVICE_ID" --email="$EMAIL" &
+    CERT_SERVER_PID=$!
+    echo "Certificate generation server started.  Waiting for certificates to be generated..."
+
+    while true; do
+      if [ -f "/home/developer/certificates/author.p12" ] && [ -f "/home/developer/certificates/distributor.p12" ]; then
+        export CERTIFICATE_PASSWORD="$CERT_PASSWORD"
+        ln -s "/home/developer/certificates/" "/certificates"
+        echo "Certificates generated and linked. CERTIFICATE_PASSWORD set."
+        kill "$CERT_SERVER_PID"
+        break
+      else
+        echo "Certificates not yet generated. Checking again in 5 seconds..."
+        sleep 5
+      fi
+    done
+
+  else
+    echo "CERTIFICATE_PASSWORD is already set. Skipping certificate generation."
+  fi
 fi
 
 if [ -n "$CERTIFICATE_PASSWORD" ]; then
