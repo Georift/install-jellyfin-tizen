@@ -24,7 +24,7 @@ RUN chown developer:developer entrypoint.sh
 RUN chmod +x entrypoint.sh
 
 # Sets the certificate and distrobutor password with an env variable
-ENV CERT_PASSWORD=_CERTIFICATEPASSWORD_
+ENV CERT_PASSWORD=8VzdJWON1KaW3IRKrie7rDkovaqVciyG3xYiNWhzJE
 
 # Inserts the CERT_PASSWORD vsriable into the pass: segment of the cert_server.py
 RUN sed -i "s/pass:/pass:$CERT_PASSWORD/" cert_server.py 
