@@ -51,7 +51,7 @@ docker run --rm ghcr.io/georift/install-jellyfin-tizen --ip <TV_IP> [--build <BU
 
 ### Arguments
 - `--ip <TV_IP>` → IP address of the Samsung TV (**required**)
-- `--build <BUILD_OPTION>` → Choose a build option (default: `Jellyfin`)
+- `--build <BUILD_OPTION>` → Choose a build option (default: `Jellyfin` available: `Jellyfin, Jellyfin-TrueHD, Jellyfin-master, Jellyfin-master-TrueHD, Jellyfin-secondary`)
 - `--tag <TAG_URL>` → URL of the release tag (optional, uses the latest version if not specified)
 - `--oneui8` → Enables One UI 8 mode (see section below)
 - `--device-id <DEVICE_ID>` → Device ID (required for `--oneui8`)
