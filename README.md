@@ -141,4 +141,5 @@ This project would not be possible without the following:
 - [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen)
 - [jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds)
 - [vitalets/docker-tizen-webos-sdk](https://github.com/vitalets/docker-tizen-webos-sdk)
+- [tizencertificates](https://github.com/sreyemnayr/tizencertificates)
 
