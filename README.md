@@ -42,6 +42,13 @@ If Jellyfin is already installed, [follow the official uninstallation guide](htt
 
 ## Install Jellyfin
 
+### Receive the Device-ID
+Use the following command to receive the device id from the tv
+
+```bash
+docker run --rm ghcr.io/georift/install-jellyfin-tizen --ip <TV_IP> --get-device-id
+```
+
 ### Installation Command
 Use the following command to install Jellyfin. Replace the placeholders accordingly:
 
