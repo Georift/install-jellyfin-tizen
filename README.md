@@ -19,7 +19,8 @@ With this script, you can install Jellyfin with just one command once your compu
 
 #### a) Enable Developer Mode
 
-> **Note:** If your TV uses a right-to-left language (e.g., Arabic or Hebrew), the IP address must be entered in reverse order. [More info here.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
+> [!NOTE]
+> If your TV uses a right-to-left language (e.g., Arabic or Hebrew), the IP address must be entered in reverse order. [More info here.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
 
 1. On your TV, go to "Apps".
 2. Scroll down to "App Settings" and open it.
@@ -44,6 +45,9 @@ If Jellyfin is already installed, [follow the official uninstallation guide](htt
 
 ### Receive the Device-ID
 Use the following command to receive the device id from the tv
+
+> [!NOTE]
+> This command returns for some samsung tv's the model number, instead of the unique device id. If you encounter problems while installing, try to receive the unique device id via Settings->All Settings->Support->Info
 
 ```bash
 docker run --rm ghcr.io/georift/install-jellyfin-tizen --ip <TV_IP> --get-device-id
