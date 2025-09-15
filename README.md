@@ -17,8 +17,8 @@ Install Jellyfin to your TV with just one command once your computer and TV are 
 
 > [!NOTE]
 > If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
-- On the TV, open the "Smart Hub".
-- Select the "Apps" panel.
+- On the TV, open the "Smart Hub" (for newer Samsung TVs, this is the home page).
+- Select the "Apps" panel (for newer Samsung Tvs, go to the Apps tab, scroll down to App settings and click it).
 - Press the "123" button (or if your remote doesn't have this button, long press the Home button) before typing "12345" with the on-screen keyboard.
 - Toggle the `Developer` button to `On`.
 - Enter the `Host PC IP` address of the device you're running this container on.
