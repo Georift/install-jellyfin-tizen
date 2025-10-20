@@ -129,17 +129,19 @@ wget -q --show-progress "$DOWNLOAD_URL"; echo ""
 if $ONEUI8_MODE; then
   if [ -z "$CERTIFICATE_PASSWORD" ]; then
     echo "Starting the certificate generation server..."
-    pip install -r requirements.txt
-    python cert_server.py --tv --device-id="$DEVICE_ID" --email="$EMAIL" &
+    cd tizencertificates
+    uv run cert_server.py --tv --device-id="$DEVICE_ID" --email="$EMAIL" &
     CERT_SERVER_PID=$!
+    cd ..
     echo "Certificate generation server started.  Waiting for certificates to be generated..."
 
     while true; do
-      if [ -f "/home/developer/certificates/author.p12" ] && [ -f "/home/developer/certificates/distributor.p12" ]; then
+      if [ -f "/home/developer/tizencertificates/certificates/author.p12" ] && [ -f "/home/developer/tizencertificates/certificates/distributor.p12" ]; then
         export CERTIFICATE_PASSWORD="$CERT_PASSWORD"
-        ln -s "/home/developer/certificates/" "/certificates"
+        ln -s "/home/developer/tizencertificates/certificates/" "/certificates"
         echo "Certificates generated and linked. CERTIFICATE_PASSWORD set."
         kill "$CERT_SERVER_PID"
+        sleep 5
         break
       else
         echo "Certificates not yet generated. Checking again in 5 seconds..."
@@ -167,6 +169,6 @@ echo ""
 echo "Possible fix for certificate error:"
 echo "The error 'Check certificate error : :Invalid format of certificate in signature.:<-2>' suggests an issue with the certificate."
 echo "1. Verify your CERTIFICATE_PASSWORD is correct, if used."
-echo "2. Ensure the certificates in /certificates/author.p12 and /certificates/distributor.p12 are valid."
+echo "2. Ensure the certificates in /certificates/tizencertificates/author.p12 and /certificates/tizencertificates/distributor.p12 are valid."
 echo "3. If using OneUI8 mode, make sure the certificate generation process completed successfully."
 echo "4. Try regenerating the certificates. If you are using the cert_server.py script, double check the device-id and email are correct"
