@@ -1,0 +1,3 @@
+[submodule "tizencertificates"]
+	path = tizencertificates
+	url = https://github.com/sreyemnayr/tizencertificates.git

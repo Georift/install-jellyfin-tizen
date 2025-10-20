@@ -1,89 +1,174 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-    echo "Please pass the IP address of your Samsung TV as part of the commandline arguments for this script.";
-		exit 1;
+# Function to display help message
+print_help() {
+  echo "Usage: $0 --ip <TV_IP> [--build <BUILD_OPTION>] [--tag <TAG_URL>] [--oneui8 --device-id <DEVICE_ID> --email <EMAIL>] [--cert-password <PASSWORD>] [--get-device-id]"
+  echo ""
+  echo "Options:"
+  echo "  --ip <TV_IP>           IP address of your Samsung TV (required)"
+  echo "  --build <BUILD_OPTION>  Build option (default: Jellyfin)"
+  echo "  --tag <TAG_URL>        URL of the release tag (optional, latest if omitted)"
+  echo "  --oneui8               Enable One UI 8 mode"
+  echo "  --device-id <DEVICE_ID> Device ID for One UI 8 (required if --oneui8 is used)"
+  echo "  --email <EMAIL>       Email for One UI 8 (required if --oneui8 is used)"
+  echo "  --cert-password <PASSWORD> Password for the certificate (optional)"
+  echo "  --get-device-id        Get the device ID from the provided IP"
+  exit 1
+}
+
+# Initialize variables
+TV_IP=""
+JELLYFIN_BUILD_OPTION="Jellyfin"
+TAG_URL="https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest"
+ONEUI8_MODE=false
+DEVICE_ID=""
+EMAIL=""
+CERTIFICATE_PASSWORD=""
+GET_DEVICE_ID=false
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --ip) TV_IP="$2"; shift 2 ;;
+    --build) JELLYFIN_BUILD_OPTION="$2"; shift 2 ;;
+    --tag) TAG_URL="$2"; shift 2 ;;
+    --oneui8) ONEUI8_MODE=true; shift 1 ;;
+    --device-id) DEVICE_ID="$2"; shift 2 ;;
+    --email) EMAIL="$2"; shift 2 ;;
+    --cert-password) CERTIFICATE_PASSWORD="$2"; shift 2 ;;
+    --get-device-id) GET_DEVICE_ID=true; shift 1 ;;
+    --help) print_help; exit 0 ;;
+    *) echo "Invalid option: $1"; print_help; exit 1 ;;
+  esac
+done
+
+# Check if required --ip argument is provided
+if [ -z "$TV_IP" ]; then
+  echo "Error: --ip <TV_IP> is required."
+  print_help
 fi
 
-JELLYFIN_BUILD_OPTION="${2:-Jellyfin}";
-TAG_URL="${3:-https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest}";
-
-if [ -z "$2" ]; then
-    echo "Build option not provided, using default one: $JELLYFIN_BUILD_OPTION";
-	echo "You can change it by passing option name as second argument for this script.";
+# Get device ID if requested
+if $GET_DEVICE_ID; then
+  echo "Attempting to connect to Samsung TV at IP address $TV_IP"
+  sdb connect "$TV_IP"
+  DEVICE_ID=$(sdb devices | grep -E 'device\s+\w+[-]?\w+' -o | sed 's/device//' - | xargs)
+  if [ -z "$DEVICE_ID" ]; then
+    echo "We were unable to find the TV device ID."
+    exit 1
+  fi
+  echo "Device ID: $DEVICE_ID"
+  exit 0
 fi
 
-if [ -z "$3" ]; then
-	FULL_TAG_URL=$(curl -sLI $TAG_URL | grep -i 'location:' | sed -e 's/^[Ll]ocation: //g' | tr -d '\r');
+# One UI 8 mode checks
+if $ONEUI8_MODE; then
+  if [ -z "$DEVICE_ID" ] || [ -z "$EMAIL" ]; then
+    echo "Error: --device-id and --email are required for One UI 8 mode."
+    print_help
+  fi
+fi
 
-	# Check if FULL_TAG_URL is not empty and valid
-	if [ -z "$FULL_TAG_URL" ]; then
-		echo "Error: Could not fetch the latest tag URL from $TAG_URL"
-		exit 1
-	fi
- 
-	TAG=$(basename "$FULL_TAG_URL");
-	echo "Tag URL not provided, using the latest available version: $TAG";
-	echo "You can change it by passing tag URL as third argument for this script.";
+# Tag URL handling
+if [ "$TAG_URL" = "https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/latest" ]; then
+  FULL_TAG_URL=$(curl -sLI "$TAG_URL" | grep -i 'location:' | sed -e 's/^[Ll]ocation: //g' | tr -d '\r')
+
+  if [ -z "$FULL_TAG_URL" ]; then
+    echo "Error: Could not fetch the latest tag URL from $TAG_URL"
+    exit 1
+  fi
+
+  TAG=$(basename "$FULL_TAG_URL")
+  echo "Using the latest available version: $TAG"
 else
-	# Extract the tag name from the provided TAG_URL
-	TAG=$(basename "$TAG_URL")
- 
-	# Check if TAG is not empty
-	if [ -z "$TAG" ]; then
-		echo "Error: Could not extract the tag from the provided URL $TAG_URL"
-		echo "Please provide a URL to the full release, for example: https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-11-24-0431"
-  		echo "Otherwise, don't provide a URL and the latest version will be installed."
-		exit 1
-	fi
+  TAG=$(basename "$TAG_URL")
+  if [ -z "$TAG" ]; then
+    echo "Error: Could not extract the tag from the provided URL $TAG_URL"
+    echo "Please provide a URL to the full release, for example: https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/tag/2024-11-24-0431"
+    exit 1
+  fi
 fi
 
-if [ -z "$4" ]; then
-	echo "Certificate information not provided, using default dev certificate."
+# Certificate handling
+if [ -n "$CERTIFICATE_PASSWORD" ]; then
+  if ! [ -f /certificates/author.p12 ] || ! [ -f /certificates/distributor.p12 ]; then
+    echo "Error: Certificate files not found."
+    exit 1
+  fi
 else
-	if [ -f /certificates/author.p12 ] && [ -f /certificates/distributor.p12 ]; then
-		CERTIFICATE_PASSWORD=$4
-	else
-		echo "Certificate information provided but certificate files not found."
-		exit 1
-	fi
-fi	
+  echo "Using default dev certificate."
+fi
 
-DOWNLOAD_URL=$(echo https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/download/${TAG}/${JELLYFIN_BUILD_OPTION}.wgt);
+DOWNLOAD_URL="https://github.com/jeppevinkel/jellyfin-tizen-builds/releases/download/${TAG}/${JELLYFIN_BUILD_OPTION}.wgt"
 
 echo ""
 echo ""
-echo "	Thanks to https://github.com/jeppevinkel for providing the pre-packaged jellyfin-tizen builds!";
-echo "	These builds can be found at https://github.com/jeppevinkel/jellyfin-tizen-builds";
+echo " Thanks to https://github.com/jeppevinkel for providing the pre-packaged jellyfin-tizen builds!"
+echo " These builds can be found at https://github.com/jeppevinkel/jellyfin-tizen-builds"
 echo ""
-echo "	Using Jellyfin Tizen Build $JELLYFIN_BUILD_OPTION.wgt";
-echo "	from release: $TAG";
+echo " Using Jellyfin Tizen Build $JELLYFIN_BUILD_OPTION.wgt"
+echo " from release: $TAG"
 echo ""
 echo ""
-
-TV_IP="$1";
 
 echo "Attempting to connect to Samsung TV at IP address $TV_IP"
-sdb connect $1
+sdb connect "$TV_IP"
 
 echo "Attempting to get the TV name..."
 TV_NAME=$(sdb devices | grep -E 'device\s+\w+[-]?\w+' -o | sed 's/device//' - | xargs)
 
 if [ -z "$TV_NAME" ]; then
-    echo "We were unable to find the TV name.";
-		exit 1;
+  echo "We were unable to find the TV name."
+  exit 1
 fi
 echo "Found TV name: $TV_NAME"
 
 echo "Downloading jellyfin-tizen-builds $JELLYFIN_BUILD_OPTION.wgt from release: $TAG"
 wget -q --show-progress "$DOWNLOAD_URL"; echo ""
 
-if ! [ -z "$CERTIFICATE_PASSWORD" ]; then
-	echo "Attempting to sign package using provided certificate"
-	sed -i "s/_CERTIFICATEPASSWORD_/$CERTIFICATE_PASSWORD/" profile.xml
-	sed -i '/<\/profile>/ r profile.xml' /home/developer/tizen-studio-data/profile/profiles.xml
-	tizen package -t wgt -s custom -- $JELLYFIN_BUILD_OPTION.wgt
+if $ONEUI8_MODE; then
+  if [ -z "$CERTIFICATE_PASSWORD" ]; then
+    echo "Starting the certificate generation server..."
+    cd tizencertificates
+    uv run cert_server.py --tv --device-id="$DEVICE_ID" --email="$EMAIL" &
+    CERT_SERVER_PID=$!
+    cd ..
+    echo "Certificate generation server started.  Waiting for certificates to be generated..."
+
+    while true; do
+      if [ -f "/home/developer/tizencertificates/certificates/author.p12" ] && [ -f "/home/developer/tizencertificates/certificates/distributor.p12" ]; then
+        export CERTIFICATE_PASSWORD="$CERT_PASSWORD"
+        ln -s "/home/developer/tizencertificates/certificates/" "/certificates"
+        echo "Certificates generated and linked. CERTIFICATE_PASSWORD set."
+        kill "$CERT_SERVER_PID"
+        sleep 5
+        break
+      else
+        echo "Certificates not yet generated. Checking again in 5 seconds..."
+        sleep 5
+      fi
+    done
+
+  else
+    echo "CERTIFICATE_PASSWORD is already set. Skipping certificate generation."
+  fi
+fi
+
+if [ -n "$CERTIFICATE_PASSWORD" ]; then
+  echo "Attempting to sign package using provided certificate"
+  sed -i "s/_CERTIFICATEPASSWORD_/$CERTIFICATE_PASSWORD/" profile.xml
+  sed -i '/<\/profile>/ r profile.xml' /home/developer/tizen-studio-data/profile/profiles.xml
+  tizen package -t wgt -s custom -- "$JELLYFIN_BUILD_OPTION.wgt"
 fi
 
 echo "Attempting to install jellyfin-tizen-builds $JELLYFIN_BUILD_OPTION.wgt from release: $TAG"
-tizen install -n $JELLYFIN_BUILD_OPTION.wgt -t "$TV_NAME"
+tizen install -n "$JELLYFIN_BUILD_OPTION.wgt" -t "$TV_NAME"
+
+# Error handling suggestion for certificate issue.
+echo ""
+echo "Possible fix for certificate error:"
+echo "The error 'Check certificate error : :Invalid format of certificate in signature.:<-2>' suggests an issue with the certificate."
+echo "1. Verify your CERTIFICATE_PASSWORD is correct, if used."
+echo "2. Ensure the certificates in /certificates/tizencertificates/author.p12 and /certificates/tizencertificates/distributor.p12 are valid."
+echo "3. If using OneUI8 mode, make sure the certificate generation process completed successfully."
+echo "4. Try regenerating the certificates. If you are using the cert_server.py script, double check the device-id and email are correct"
