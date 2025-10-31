@@ -114,3 +114,13 @@ This project is possible thanks to these projects:
 - [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen)
 - [jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) for providing development builds
 - [vitalets/docker-tizen-webos-sdk](https://github.com/vitalets/docker-tizen-webos-sdk) for a docker container preinstalled with the Tizen SDK
+
+## Similar Projects
+
+Here are some similar projects we've been told of, links are provided here without
+any endorsement for their quality.
+
+- [PatrickSt1991/Samsung-Jellyfin-Installer](https://github.com/PatrickSt1991/Samsung-Jellyfin-Installer):
+  * GUI based installed rather than Docker
+
+Feel free to raise a PR with any additional projects.
