@@ -1,28 +1,25 @@
 # Install Jellyfin for Samsung TV
 
-This project makes it easy to install [Jellyfin for Samsung TV](https://github.com/jellyfin/jellyfin-tizen) by automating the environment configuration with Docker.
+This project makes it easy to install [Jellyfin for Samsung TV](https://github.com/jellyfin/jellyfin-tizen) with a single pre-configured docker container.
 
-Samsung TVs have been running Tizen OS since 2015, and while the Jellyfin app is stable & officially supported, [the app has yet to make it onto the Samsung app store since efforts began in late 2021](https://github.com/jellyfin/jellyfin-tizen/issues/94).
-
-Install Jellyfin to your TV with just one command once your computer and TV are configured as described below.
+Jellyfin has yet to make it onto the Samsung App store, [but active effort is under way to get it there](https://github.com/jellyfin/jellyfin-tizen/issues/222#issuecomment-3459574549).
 
 ## Configure Computer (PC, Laptop, etc...)
-- Follow [Docker Installation Instructions](https://www.docker.com/get-started/)
-- Enable any necessary [Virtualization](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1) features.
-- Ensure you are on the same network as the TV you are trying to install the app to.
+
+- Install [Docker](https://www.docker.com/get-started/)
+  * Enable any necessary [Virtualization](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1) features.
+
+- Ensure you are connected to the same network as the TV.
 
 ## Configure Samsung TV
 
 #### Place TV in Developer Mode
 
-> [!NOTE]
-> If the TV is set to use a Right-to-left language (Arabic, Hebrew, etc). You need to enter the IP address on the TV backwards. [Read more.](https://github.com/Georift/install-jellyfin-tizen/issues/30)
 - On the TV, open the "Smart Hub".
 - Select the "Apps" panel.
 - Press the "123" button (or if your remote doesn't have this button, long press the Home button) before typing "12345" with the on-screen keyboard.
 - Toggle the `Developer` button to `On`.
-- Enter the `Host PC IP` address of the device you're running this container on.
-    > Troubleshooting Tip: If the on-screen keyboard will not pop up or if it does pop up but nothing is being entered while typing then please use either an external Bluetooth keyboard or follow these instructions to utilize the virtual keyboard from the Samsung SmartThings app (available on iOS or Android). Download the SmartThings app from your app store. Sign into your Samsung account on your TV and SmartThings app. Open the SmartThings app. Grant the requested permissions. On the bottom toolbar select `Devices`, select the `+` icon, select `Samsung Devices Add`, select `TV` then wait and select your TV (it may hang during pairing but still work if you navigate back to `Devices`). Select your TV widget (the widget may briefly display 'downloading') and the virtual remote should appear shortly. Swipe up to maximize the virtual remote—you should see a bottom section appear. Swipe on the bottom section of the virtual device until you find the numeric keypad. Enter the Host PC IP address with the virtual numeric keyboard. Enter the IP address and then select `Okay`. Now run the docker command described below. (This issue has been documented on the UN43TU7000G/UN55AU8000B and likely exists on other models as well.)
+- Enter the `Host PC IP` address of the computer you're running this container on. [Need help?](./docs/troubleshooting.md#Entering Host IP)
 
 #### Uninstall Existing Jellyfin Installations, If Required
 
@@ -30,7 +27,7 @@ Follow the [Samsung uninstall instructions](https://www.samsung.com/in/support/t
 
 #### Find IP Address
 
-- Exact instructions will vary with the model of TV. In general you can find the TV's IP address in Settings under Networking or About. Plenty of guides are availble with a quick search, however for brevity a short guide with pictures can be found [here](https://www.techsolutions.support.com/how-to/how-to-check-connection-on-samsung-smart-tv-10925).
+- Exact instructions will vary with the model of TV. In general you can find the TV's IP address in Settings under Networking or About. Plenty of guides are available with a quick search, however for brevity a short guide with pictures can be found [here](https://www.techsolutions.support.com/how-to/how-to-check-connection-on-samsung-smart-tv-10925).
 
 - Make a note of the IP address as it will be needed later. 
 
@@ -83,7 +80,7 @@ Tizen application is successfully installed.
 Total time: 00:00:12.205
 ```
 
-At this point you can find jellyfin on your TV by navigating to Apps -> Downloaded (scroll down), there you'll find Jellyfin.
+At this point you can find Jellyfin on your TV by navigating to Apps -> Downloaded (scroll down), there you'll find Jellyfin.
 
 ## Supported Platforms
 
