@@ -19,7 +19,7 @@ Jellyfin has yet to make it onto the Samsung App store, [but active effort is un
 - Select the "Apps" panel.
 - Press the "123" button (or if your remote doesn't have this button, long press the Home button) before typing "12345" with the on-screen keyboard.
 - Toggle the `Developer` button to `On`.
-- Enter the `Host PC IP` address of the computer you're running this container on. [Need help?](./docs/troubleshooting.md#Entering Host IP)
+- Enter the `Host PC IP` address of the computer you're running this container on. [Need help?](docs/troubleshooting.md)
 
 #### Uninstall Existing Jellyfin Installations, If Required
 
