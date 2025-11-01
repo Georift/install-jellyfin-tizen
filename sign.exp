@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+
+spawn tizen package -t wgt -s custom -- ./_JELLYFINBUILDOPTION_.wgt
+expect "Author password:"
+send -- "_CERTIFICATEPASSWORD_\r"
+expect "Yes: (Y), No: (N) ?"
+send -- "n\r"
+expect "Distributor1 password:"
+send -- "_CERTIFICATEPASSWORD_\r"
+expect "Yes: (Y), No: (N) ?"
+send -- "n\r"
+expect eof
