@@ -70,7 +70,7 @@ docker run --rm -v "$(pwd)/author.p12":/certificates/author.p12 -v "$(pwd)/distr
 
   Uninstall the Jellyfin application from your Samsung TV, and run the installation again.
 
-- Playback error on when attempting to play media:
+- Playback error on the TV app when attempting to play media:
 
   Make sure to install the same minor version as the Jellyfin server version you connect to, for example server version 10.10.7 use build option `Jellyfin-10.10.z`.
 
