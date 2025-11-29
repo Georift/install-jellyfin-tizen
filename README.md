@@ -70,6 +70,10 @@ docker run --rm -v "$(pwd)/author.p12":/certificates/author.p12 -v "$(pwd)/distr
 
   Uninstall the Jellyfin application from your Samsung TV, and run the installation again.
 
+- Playback error on when attempting to play media:
+
+  Make sure to install the same minor version as the Jellyfin server version you connect to, for example server version 10.10.7 use build option `Jellyfin-10.10.z`.
+
 #### Success
 
 If everything went well, you should see docker output something like the following
@@ -95,7 +99,7 @@ like the Raspberry Pi, which run ARM chips, are not yet supported, but
 
 If it outputs: **x86_64** you're good. If not, reinstall docker, with the needed requirements.
 
-Then use the ```--platform linux/amd64"``` argument on the original command. This should look something like this:
+Then use the ```--platform linux/amd64``` argument on the original command. This should look something like this:
 ```docker run --rm --platform linux/amd64 ghcr.io/georift/install-jellyfin-tizen <samsung tv ip> <build option> <tag url>```
 
 - `install failed[118, -12], reason: Check certificate error : :Invalid certificate chain with certificate in signature.`
